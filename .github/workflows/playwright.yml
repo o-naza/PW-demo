@@ -20,8 +20,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test || true # Ensures the workflow doesn't stop on failure
+        run: npx playwright test || true
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: playwright-report
           path: playwright-report/
@@ -30,7 +31,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-20.04
-    if: always() # Ensures this job runs regardless of the test result
+    if: always()
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
@@ -39,12 +40,16 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
-      - name: Upload Playwright report to GitHub Pages
+      - name: Prepare Playwright report for deployment
         run: |
-          mkdir -p out
-          cp -r playwright-report/* out/
-        env:
-          PLAYWRIGHT_REPORT_DIR: playwright-report
+          if [ -d "playwright-report" ]; then
+            mkdir -p out
+            cp -r playwright-report/* out/
+          else
+            echo "No Playwright report found. Skipping report deployment."
+            mkdir -p out
+            echo "No test report available." > out/index.html
+          fi
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
