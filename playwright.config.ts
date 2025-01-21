@@ -13,7 +13,7 @@ export const env = cleanEnv(process.env, {
 export default defineConfig({
   snapshotDir: './screenshots',
   testDir: './tests',
-  timeout: 60000,
+  timeout: 30000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
