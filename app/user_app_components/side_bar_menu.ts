@@ -3,10 +3,10 @@ import { Component } from "../abstractClasses";
 
 export class SideMenu extends Component {
 
-    private profileLink = this.page.getByRole('link', { name:'Особистий профіль'})
-    private surveysLink = this.page.getByRole('link', { name: 'Опитування' })
-    private bonusesLink = this.page.getByRole('link', { name: 'Бонуси'})
-    private contactLink = this.page.getByRole('link', { name: 'Зв\'язатися з нами' })
+    private profileLink = this.page.locator('a[href="/profile"]'); 
+    private surveysLink = this.page.locator('a[href="/surveylist"]');
+    private bonusesLink = this.page.locator('a[href="/bonuses"]');
+    private contactLink = this.page.locator('a[href="/contact"]');
 
     async expectLoaded() {
       await expect(this.profileLink).toBeVisible();

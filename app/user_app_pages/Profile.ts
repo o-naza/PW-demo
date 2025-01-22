@@ -10,7 +10,7 @@ export class Profile extends AppPage {
   private emailBlock = this.page.locator('.profile-date-item-name')
 
   async expectLoaded() {
-    await expect(this.emailBlock).toBeVisible({ timeout: 10000 });
+    await expect(this.emailBlock.first()).toBeVisible({ timeout: 10000 });
   }
   async userEmailIsVisible(user: { email: string }) {
     await this.expectLoaded();
