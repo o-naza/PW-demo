@@ -9,14 +9,14 @@ export class SignUp extends AppPage {
     private emailInput = this.page.locator('input[name="email"]')
     private passwordInput = this.page.locator('input[name="password"]')
     private registerWithGoogle = this.page.getByRole('img', { name: 'Google' })
-    private LicenseAgreementCheckbox = this.page.locator('label span')
+    private LicenseAgreementCheckbox = this.page.locator('label span').first()
     private countryListDpopdown = this.page.locator('selected-auth-text')
 
     async expectLoaded() {
         await expect(this.emailInput).toBeVisible();
         await expect(this.passwordInput).toBeVisible();
         await expect(this.registerBtn).toBeVisible();
-        await expect(this.LicenseAgreementCheckbox.first()).toBeVisible();
+        await expect(this.LicenseAgreementCheckbox).toBeVisible();
         await expect(this.countryListDpopdown).not.toBeVisible();
         await expect(this.registerWithGoogle).toBeVisible();
     }
