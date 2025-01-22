@@ -10,12 +10,14 @@ export class SignIn extends AppPage {
     private loginWithGoogle = this.page.getByRole('img', { name: 'Google' })
     private loginWithFacebook = this.page.getByRole('button', { name: 'facebook' })
     private loginButton = this.page.locator('button.button__base')
+    private countryList = this.page.locator('selected-auth-text')
 
     async expectLoaded() {
         await expect(this.emailInput).toBeVisible();
         await expect(this.passwordInput).toBeVisible();
         await expect(this.loginWithGoogle).toBeVisible();
         await expect(this.loginWithFacebook).toBeVisible();
+        await expect(this.countryList).toBeVisible();
         await expect(this.loginButton).toBeVisible();
     }
 
