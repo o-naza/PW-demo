@@ -9,7 +9,8 @@ export class SignUp extends AppPage {
     private emailInput = this.page.locator('input[name="email"]')
     private passwordInput = this.page.locator('input[name="password"]')
     private registerWithGoogle = this.page.getByRole('img', { name: 'Google' })
-    private LicenseAgreementCheckbox = this.page.locator('label span').first()
+    private LicenseAgreementCheckbox = this.page.locator('label span').first() 
+    private countryName = this.page.locator('.selected-auth-text')
 
     async expectLoaded() {
         await expect(this.emailInput).toBeVisible();
@@ -17,6 +18,7 @@ export class SignUp extends AppPage {
         await expect(this.registerBtn).toBeVisible();
         await expect(this.LicenseAgreementCheckbox).toBeVisible();
         await expect(this.registerWithGoogle).toBeVisible();
+        await expect(this.countryName).toBeVisible();
     }
 
     async viaEmail(user: { email: string, password: string }) {
