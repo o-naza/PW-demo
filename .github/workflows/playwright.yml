@@ -33,25 +33,12 @@ jobs:
     runs-on: ubuntu-20.04
     if: always()
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/download-artifact@v4
         with:
-          node-version: lts/*
-      - name: Install dependencies
-        run: npm ci
-      - name: Prepare Playwright report for deployment
-        run: |
-          if [ -d "playwright-report" ]; then
-            mkdir -p out
-            cp -r playwright-report/* out/
-          else
-            echo "No Playwright report found. Skipping report deployment."
-            mkdir -p out
-            echo "No test report available." > out/index.html
-          fi
+          name: playwright-report
+          path: out
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GH_PAGES_TOKEN }}
+          personal_token: ${{ secrets.GH_PAGES_TOKEN }} # Use Personal Access Token
           publish_dir: out
