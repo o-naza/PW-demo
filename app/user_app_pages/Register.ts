@@ -24,10 +24,6 @@ export class SignUp extends AppPage {
         await this.emailInput.fill(user.email)
         await this.passwordInput.fill(user.password)
         await this.LicenseAgreementCheckbox.click()
-        if ( await this.page.getByText('Україна').isHidden()) {
-          await this.page.locator('.selected-auth-icon').click()
-          await this.page.getByText('Україна').click()
-        }
         await this.registerBtn.click()
     }
     
