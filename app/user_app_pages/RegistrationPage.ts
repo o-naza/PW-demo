@@ -10,14 +10,12 @@ export class SignUp extends AppPage {
     private passwordInput = this.page.locator('input[name="password"]')
     private registerWithGoogle = this.page.getByRole('img', { name: 'Google' })
     private LicenseAgreementCheckbox = this.page.locator('label span').first()
-    private countryListDpopdown = this.page.locator('selected-auth-text')
 
     async expectLoaded() {
         await expect(this.emailInput).toBeVisible();
         await expect(this.passwordInput).toBeVisible();
         await expect(this.registerBtn).toBeVisible();
         await expect(this.LicenseAgreementCheckbox).toBeVisible();
-        await expect(this.countryListDpopdown).not.toBeVisible();
         await expect(this.registerWithGoogle).toBeVisible();
     }
 
@@ -26,6 +24,10 @@ export class SignUp extends AppPage {
         await this.emailInput.fill(user.email)
         await this.passwordInput.fill(user.password)
         await this.LicenseAgreementCheckbox.click()
+        if ( await this.page.getByText('{Україна}').isHidden()) {
+          await this.page.locator('.selected-auth-icon').click()
+          await this.page.getByText('Україна').click()
+        }
         await this.registerBtn.click()
     }
     
