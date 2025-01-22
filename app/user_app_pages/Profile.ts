@@ -7,7 +7,7 @@ export class Profile extends AppPage {
 
   public pagePath = `${env.WEB_APP_URL}/profile`
   public sideMenu = new SideMenu(this.page)
-  private emailBlock = this.page.getByText('Ел. адреса')
+  private emailBlock = this.page.locator('.profile-date-item-name')
 
   async expectLoaded() {
     await expect(this.emailBlock).toBeVisible({ timeout: 10000 });
